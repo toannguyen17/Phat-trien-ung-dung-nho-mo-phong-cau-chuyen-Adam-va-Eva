@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>[Bài tập] Phát triển ứng dụng nhỏ mô phỏng câu chuyện Adam và Eva</title>
+	<style type="text/css">
+		html, body {
+			background: #f8f8f8;
+			font-family: Arial;
+			font-size: 16px;
+		}
+		p {
+			margin: 10px 10px 0 10px;
+			font-family: Arial;
+			font-size: 16px;
+		}
+		#content {
+		    background: #fff;
+		    padding: 10px;
+		    box-shadow: 0 0 5px -3px;
+		}
+	</style>
+	<script type="text/javascript" src="Apple.js"></script>
+	<script type="text/javascript" src="Human.js"></script>
+</head>
+<body>
+<p>[Bài tập] Phát triển ứng dụng nhỏ mô phỏng câu chuyện Adam và Eva</p>
+<div id="content"></div>
+<script type="text/javascript">
+	let content = document.getElementById('content');
+	let delayTime = function(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}
+	let start = async function(){
+		await delayTime(1000);
+		content.innerHTML += '<p>Ngày này năm sưa tại vường địa đàng...</p>';
+		await delayTime(3000);
+		content.innerHTML += '<p>Ở giữa vườn có 1 cây táo tàu mọc rất vô duyên...</p>';
+		await delayTime(3000);
+		// Tạo cây táo
+		let Tree = [];
+		for (let i = 0; i < 10; i++) {
+			Tree[i] = new Apple();
+			content.innerHTML += '.';
+			await delayTime(250);
+		}
+		content.innerHTML += '<br/>';
+		await delayTime(1000);
+		content.innerHTML += '<p>Eva đi đâu qua thì không biết, chỉ biết là hái 1 quả táo về ăn với Adam</p>';
+		await delayTime(4000);
+		// Hái ngẫu nhiên 1 quả táo
+		let random = (Math.random()*10)>>0;
+		let apple = Tree[random];
+		let Eva  = new Human('Eva', false, 60);
+		content.innerHTML += '<p>Eva nặng 60 cân.</p>';
+		await delayTime(1500);
+		let Adam = new Human('Adam', true, 50);
+		content.innerHTML += '<p>Adam vừa vạng vỡ lại thon gọn 50 cân.</p>';
+		await delayTime(1500);
+
+		let i = 0;
+		while(!apple.isEmpty()){
+			if (i%2 === 0) {
+				content.innerHTML += '<p>Eva cắn 1 miếng.</p>';
+				Eva.eat(apple);
+			}else{
+				content.innerHTML += '<p>Adam cắn 1 miếng.</p>';
+				Adam.eat(apple);
+			}
+			await delayTime(500);
+			i++;
+		}
+		await delayTime(800);
+		content.innerHTML += '<p>Thanks for watching.</p>';
+		content.innerHTML += '<p>The End.</p>';
+	}
+	start()
+</script>
+
+</body>
+</html>
